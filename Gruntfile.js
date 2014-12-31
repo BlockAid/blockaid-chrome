@@ -1,7 +1,3 @@
-'use strict';
-
-grunt.loadNpmTasks('grunt-crx');
-
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -12,7 +8,8 @@ module.exports = function (grunt) {
                 "src": [
                     "./**/*",
                     "!.{git,svn}",
-                    "!*.pem"
+                    "!*.pem",
+                    "!dist/**"
                 ],
                 "dest": "dist/staging/src/<%= pkg.name %>-<%= manifest.version %>-dev.crx",
                 "zipDest": "dist/staging/src/<%= pkg.name %>-<%= manifest.version %>-dev.zip",
@@ -28,7 +25,8 @@ module.exports = function (grunt) {
                     "./**/*",
                     "!.{git,svn}",
                     "!*.pem",
-                    "!dev/**"
+                    "!dev/**",
+                    "!dist/**"
                 ],
                 "dest": "dist/production/src/<%= pkg.name %>-<%= manifest.version %>-dev.crx",
                 "zipDest": "dist/production/src/<%= pkg.name %>-<%= manifest.version %>-dev.zip",
@@ -39,4 +37,10 @@ module.exports = function (grunt) {
             }
         }
     });
+
+
+    grunt.loadNpmTasks( 'grunt-crx' );
+    grunt.loadNpmTasks( 'grunt-contrib-compress' );
+    grunt.registerTask( 'package', [ 'crx:production', 'compress:production' ] );
+    grunt.registerTask( 'default', [ 'crx:staging', 'compress:staging'] );
 }
