@@ -1,0 +1,20 @@
+{
+  "name": "BlockAid",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeweft/blockaid"
+  },
+  "description": "A extension to speed up page load",
+  "homepage": "https://codeweft.com/blockaid",
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-crx": "~0.3.4"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}
