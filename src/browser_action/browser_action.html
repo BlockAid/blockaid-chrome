@@ -1,0 +1,66 @@
+<!doctype html>
+<html ng-app="todoApp" ng-app ng-csp>
+<head>
+    <script src="../../js/angular/angular.js"></script>
+    <script src="../../js/jquery/jquery.js"></script>
+    <script src="../../js/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap-theme.css">-->
+    <link rel="stylesheet" href="../../js/font-awesome/css/font-awesome.min.css">
+
+    <script src="init.js"></script>
+    <script src="browser_action.js"></script>
+    <style type="text/css">
+
+        html, body {
+            height: 100%;
+        }
+
+        #mainPopup {
+            padding: 5px 5px 5px 5px;
+            min-height: 200px;
+            min-width: 400px;
+            overflow:auto;
+            font-family: Helvetica, Ubuntu, Arial, sans-serif;
+            border: 5px solid #84885b;
+            display: inline-block;
+            min-height: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .done-true {
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar navbar-default" id="mainPopup">
+    <!--<nav class="navbar navbar-default" role="navigation">-->
+
+    <h3 class="text-center">Domain Block List</h3>
+
+    <!--<p>To shut this popup down, edit the manifest file and remove the "default popup" key. To edit it, just edit ext/browser_action/browser_action.html. The CSS is there, too.</p>-->
+    <div ng-controller="TodoController">
+        <ul class="unstyled">
+            <li ng-repeat="todo in todos track by $index">
+                <input type="checkbox" ng-change="saveItem($index)" ng-model="todo.done">
+                <span class="done-{{!todo.done}}">{{todo.text}}</span>
+                <i ng-click="deleteItem($index)" class="icon-trash"></i>
+            </li>
+        </ul>
+        <form ng-submit="addTodo()" class="text-center">
+            <input type="text" ng-model="todoText" size="30"
+                   placeholder="add domains to block"/>
+            <!--</br>-->
+            <input class="btn-primary" type="submit" value="save"/>
+        </form>
+    </div>
+
+    <!--</nav>-->
+</div>
+</body>
+</html>

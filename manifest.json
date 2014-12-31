@@ -1,0 +1,33 @@
+{
+  "name": "FastWarp",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "A extension to speed up page load",
+  "homepage_url": "http://www.codeweft.com",
+  "icons": {
+    "16": "icons/iconDefault.png",
+    "48": "icons/iconDefault.png",
+    "128": "icons/iconDefault.png"
+  },
+  "permissions": [
+    "tabs",
+    "webRequest",
+    "webNavigation",
+    "webRequestBlocking",
+    "storage",
+    "management",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "default_locale": "en",
+  "background": {
+    "page": "src/bg/background.html",
+    "persistent": true
+  },
+  "options_page": "src/options_custom/index.html",
+  "browser_action": {
+    "default_icon": "icons/iconDefault.png",
+    "default_title": "FastWarp",
+    "default_popup": "src/browser_action/browser_action.html"
+  }
+}
