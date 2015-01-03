@@ -1,0 +1,37 @@
+<!doctype html>
+<html ng-app="BlockAidApp" ng-app ng-csp>
+<head>
+    <script src="../../lib/jquery/jquery.min.js"></script>
+    <script src="../../lib/angular/angular.js"></script>
+    <script src="../js/app.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+    
+    </style>
+</head>
+<body>
+<div id="mainPopup">
+
+    <h3 class="text-center">Domain Block List</h3>
+
+    <div ng-controller="BlockAidController">
+        <form ng-submit="addTodo()" class="text-center">
+            <input class="input-text" type="text" ng-model="todoText" size="30"
+                   placeholder="Add domains to block"/>
+            <input class="input-button" type="submit" value="save"/>
+        </form>
+
+        <div class="list">
+            <ul class="unstyled">
+                <li ng-repeat="todo in todos track by $index">
+                    <input type="checkbox" ng-change="saveItem($index)" ng-model="todo.done">
+                    <span class="done-{{!todo.done}}">{{todo.text}}</span>
+                    <i ng-click="deleteItem($index)" class="icon-trash">X</i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

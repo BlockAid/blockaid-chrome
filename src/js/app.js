@@ -1,5 +1,5 @@
-angular.module('todoApp', [])
-    .controller('TodoController', ['$scope', function ($scope) {
+angular.module('BlockAidApp', [])
+    .controller('BlockAidController', ['$scope', function ($scope) {
         $scope.todos = [];
 
         $scope.addTodo = function () {

@@ -1,10 +1,13 @@
 body {
     color: #333333;
+    background-color: #f3f3f3;
+    text-align: center;
 }
 
 .text-center {
 	text-align: center;
 }
+
 #mainPopup {
     padding: 5px 5px 5px 5px;
     min-height: 200px;
@@ -14,8 +17,24 @@ body {
     display: inline-block;
 }
 
+.container {
+	width: 1024px;
+    margin: 0 auto;
+}
+
+
 h3 {
     font-size: 2em;
+}
+
+.list {
+	text-align: left;
+	width: 708px;
+	margin: 0 auto;
+}
+
+#mainPopup .list {
+	width: 400px;
 }
 
 .unstyled li {
