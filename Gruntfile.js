@@ -27,7 +27,7 @@ module.exports = function(grunt) {
         jshint: {
             options: grunt.file.readJSON('lint-options.json'), // see http://www.jshint.com/docs/options/
             all: { src: ['package.json', 'lint-options.json', 'Gruntfile.js', 'code/**/*.js',
-                './**/*.json', '!./lib/*', '!./node_modules/*'] }
+                './**/*.json', '!./lib/*', '!node_modules/*'] }
         },
 
         mochaTest: {
