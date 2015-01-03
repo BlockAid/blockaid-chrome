@@ -1,0 +1,57 @@
+body {
+    color: #333333;
+}
+
+.text-center {
+	text-align: center;
+}
+#mainPopup {
+    padding: 5px 5px 5px 5px;
+    min-height: 200px;
+    min-width: 400px;
+    overflow:auto;
+    font-family: Helvetica, Ubuntu, Arial, sans-serif;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+.unstyled li {
+    list-style: none;
+    padding-bottom: 4px;
+    padding-right: 40px;
+}
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+
+i.icon-trash {
+	font-weight: normal;
+	font-style: normal;
+	cursor: pointer;
+	color: orangered;
+	float: right;
+	display: block;
+	width: ;
+}
+
+.input-text {
+	height: 2em;
+	width: 50%;
+	padding: .2em 1em;
+}
+
+.input-button {
+	border: none;
+	height: 3em;
+	width: 8em;
+	border-radius: 2px;
+	text-transform: uppercase;
+	background-color: #3B99FC;
+	color: white;
+	padding: .2em 1em;
+}

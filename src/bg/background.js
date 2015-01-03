@@ -1,17 +1,3 @@
-// if you checked "fancy-settings" in extensionizr.com, uncomment this lines
-
-// var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
-// });
-
-
-//example of using a message handler from the inject scripts
-//chrome.extension.onMessage.addListener(
-//  function(request, sender, sendResponse) {
-//  	chrome.pageAction.show(sender.tab.id);
-//    sendResponse();
-//  });
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.method == "getStorage") {
         if (message.extensionSettings === "storage") {
@@ -31,7 +17,7 @@ var todos = [
 localStorage.setItem("extdata", JSON.stringify(todos));
 
 function checkUrl(url) {
-    todoitems = JSON.parse(localStorage.getItem("extdata") || '{}');
+    var todoitems = JSON.parse(localStorage.getItem("extdata")) || {};
     for (var i = 0; i < todoitems.length; i++) {
         if (todoitems[i].done) {
             if (url.match("/.*" + todoitems[i].text + ".*/")) {
