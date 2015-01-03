@@ -1,46 +1,141 @@
-module.exports = function (grunt) {
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        manifest: grunt.file.readJSON('manifest.json'),
+module.exports = function(grunt) {
 
-        crx: {
-            staging: {
-                "src": [
-                    "./**/*",
-                    "!.{git,svn}",
-                    "!*.pem",
-                    "!dist/**"
-                ],
-                "dest": "dist/staging/src/<%= pkg.name %>-<%= manifest.version %>-dev.crx",
-                "zipDest": "dist/staging/src/<%= pkg.name %>-<%= manifest.version %>-dev.zip",
-                "options": {
-                    "baseURL": "http://codeweft.com/blockaid/",
-                    "filename": "",
-                    "privateKey": "dist/key.pem",
-                    "maxBuffer": 3000 * 1024 //build extension with a weight up to 3MB
-                }
-            },
-            production: {
-                "src": [
-                    "./**/*",
-                    "!.{git,svn}",
-                    "!*.pem",
-                    "!dev/**",
-                    "!dist/**"
-                ],
-                "dest": "dist/production/src/<%= pkg.name %>-<%= manifest.version %>-dev.crx",
-                "zipDest": "dist/production/src/<%= pkg.name %>-<%= manifest.version %>-dev.zip",
-                "options": {
-                    "baseURL": "http://codeweft.com/blockaid/",
-                    "maxBuffer": 3000 * 1024 //build extension with a weight up to 3MB
-                }
+    var pkg = grunt.file.readJSON('package.json');
+    var mnf = grunt.file.readJSON('manifest.json');
+
+    var fileMaps = { browserify: {}, uglify: {} };
+    var file, files = grunt.file.expand({cwd:'code/js'}, ['*.js']);
+    for (var i = 0; i < files.length; i++) {
+        file = files[i];
+        fileMaps.browserify['build/unpacked-dev/js/' + file] = 'code/js/' + file;
+        fileMaps.uglify['build/unpacked-prod/js/' + file] = 'build/unpacked-dev/js/' + file;
+    }
+
+    //
+    // config
+    //
+
+    grunt.initConfig({
+
+        clean: ['build/unpacked-dev', 'build/unpacked-prod', 'build/*.crx'],
+
+        mkdir: {
+            unpacked: { options: { create: ['build/unpacked-dev', 'build/unpacked-prod'] } },
+            js: { options: { create: ['build/unpacked-dev/js'] } }
+        },
+
+        jshint: {
+            options: grunt.file.readJSON('lint-options.json'), // see http://www.jshint.com/docs/options/
+            all: { src: ['package.json', 'lint-options.json', 'Gruntfile.js', 'code/**/*.js',
+                './**/*.json', '!./lib/*', '!./node_modules/*'] }
+        },
+
+        mochaTest: {
+            options: { colors: true, reporter: 'spec' },
+            files: ['./**/*.spec.js']
+        },
+
+        copy: {
+            main: { files: [ {
+                expand: true,
+                cwd: './',
+                src: ['**', '!js/**', '!**/*.md', '!node_modules/**'],
+                dest: 'build/unpacked-dev/'
+            } ] },
+            prod: { files: [ {
+                expand: true,
+                cwd: 'build/unpacked-dev/',
+                src: ['**', '!js/*.js'],
+                dest: 'build/unpacked-prod/'
+            } ] },
+            artifact: { files: [ {
+                expand: true,
+                cwd: 'build/',
+                src: [pkg.name + '-' + pkg.version + '.crx'],
+                dest: process.env.CIRCLE_ARTIFACTS
+            } ] }
+        },
+
+        browserify: {
+            build: {
+                files: fileMaps.browserify,
+                options: { bundleOptions: {
+                    debug: true,  // for source maps
+                    standalone: pkg['export-symbol']
+                } }
+            }
+        },
+
+        exec: {
+            crx: {
+                cmd: [
+                    './crxmake.sh build/unpacked-prod ./testKey.pem',
+                    'mv -v ./unpacked-prod.crx build/' + pkg.name + '-' + pkg.version + '.crx'
+                ].join(' && ')
+            }
+        },
+
+        uglify: {
+            min: { files: fileMaps.uglify }
+        },
+
+        watch: {
+            js: {
+                files: ['package.json', 'lint-options.json', 'Gruntfile.js', 'code/**/*.js',
+                    'code/**/*.json', '!code/js/libs/*'],
+                tasks: ['test']
             }
         }
+
     });
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.loadNpmTasks( 'grunt-crx' );
-    grunt.loadNpmTasks( 'grunt-contrib-compress' );
-    grunt.registerTask( 'package', [ 'crx:production', 'compress:production' ] );
-    grunt.registerTask( 'default', [ 'crx:staging', 'compress:staging'] );
-}
+    //
+    // custom tasks
+    //
+
+    grunt.registerTask(
+        'manifest', 'Extend manifest.json with extra fields from package.json',
+        function() {
+            var fields = ['name', 'version', 'description'];
+            for (var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+                mnf[field] = pkg[field];
+            }
+            grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
+            grunt.log.ok('manifest.json generated');
+        }
+    );
+
+    grunt.registerTask(
+        'circleci', 'Store built extension as CircleCI arfitact',
+        function() {
+            if (process.env.CIRCLE_ARTIFACTS) { grunt.task.run('copy:artifact'); }
+            else { grunt.log.ok('Not on CircleCI, skipped'); }
+        }
+    );
+
+    //
+    // testing-related tasks
+    //
+
+    grunt.registerTask('test', ['jshint', 'mochaTest']);
+    grunt.registerTask('test-cont', ['test', 'watch']);
+
+    //
+    // DEFAULT
+    //
+
+    grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest',
+        'mkdir:js', 'browserify', 'copy:prod', 'uglify', 'exec', 'circleci']);
+
+};

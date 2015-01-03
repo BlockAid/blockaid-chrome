@@ -29,5 +29,5 @@ node_modules
 
 .idea
 dist/*
-!dist/key.pem
+build/*
 node_modules/
