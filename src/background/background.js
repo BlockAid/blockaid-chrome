@@ -1,13 +1,13 @@
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.method == "getStorage") {
+    if (message.method === "getStorage") {
         if (message.extensionSettings === "storage") {
             sendResponse({extdata: JSON.parse(localStorage.getItem("extdata") || '{}')});
         }
     }
-    else if (message.method == "setStorage") {
+    else if (message.method === "setStorage") {
         localStorage.setItem("extdata", JSON.stringify(message.newData));
     }
-});
+})
 
 var todos = [
     {text: 'use.typekit.net', done: true},
@@ -30,7 +30,7 @@ function checkUrl(url) {
 
 chrome.webRequest.onBeforeRequest.addListener(
     function (details) {
-        return {cancel: checkUrl(details.url) != false};
+        return {cancel: checkUrl(details.url) !== false};
     },
     {urls: ["<all_urls>"]},
     ["blocking"]);
