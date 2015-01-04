@@ -1,5 +1,36 @@
-[![Build Status](https://snap-ci.com/codeweft/blockaid/branch/master/build_image)](https://snap-ci.com/codeweft/blockaid/branch/master)
-
-blockaid
+BlockAid
 ========
-Extensions and plugin's to timeout long unnecessary web request's which slow down page loading
+Speeding up page load by blocking unwanted third party fonts, css and javascript
+
+##Background
+
+If you ever access internet behind a firewall with access policy or with slow internet connectivity, you will realize some of the websites take longer to load. In some cases the page load takes more than a minute since the request timeout for unwanted content within the website takes too long.
+
+What is this content?
+
+* Font's and StyleSheets: Used to improve overall look and feel of the website
+* Javascripts: Used for Analytics or accessing third party services on your website
+
+Most of the above content is unnecessary and the website you are accessing can continue to work without it. BlockAid is a set of browser extension's to help you solve this problem.
+
+##Installation
+
+BlockAid is still under active development. If you plan to use it, following are the steps
+
+1. Clone the project repository
+2. git clone git@github.com:codeweft/blockaid.git
+3. Open Chrome browser and goto chrome://extensions
+4. Select developer mode and load unpacked extension. Open the cloned directory
+
+
+##Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+##Build Status
+
+[![Build Status](https://snap-ci.com/codeweft/blockaid/branch/master/build_image)](https://snap-ci.com/codeweft/blockaid/branch/master)
