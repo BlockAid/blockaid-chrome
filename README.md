@@ -35,6 +35,10 @@ Please keep the [issue tracker](http://github.com/codeweft/blockaid/issues) limi
 
 If you have personal support questions use [StackOverflow](http://stackoverflow.com/questions/tagged/blockaid).
 
+###Contributors
+* [Hash](https://github.com/codeweft)
+* [Qiu Juntao](https://github.com/abruzzi)
+
 ##Build Status
 
 [![Build Status](https://snap-ci.com/codeweft/blockaid/branch/master/build_image)](https://snap-ci.com/codeweft/blockaid/branch/master)
