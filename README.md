@@ -1,4 +1,4 @@
-BlockAid
+[BlockAid](http://codeweft.com/blockaid)
 ========
 Speeding up page load by blocking unwanted third party fonts, css and javascript
 
@@ -22,14 +22,22 @@ BlockAid is still under active development. If you plan to use it, following are
 3. Open Chrome browser and goto chrome://extensions
 4. Select developer mode and load unpacked extension. Open the cloned directory
 
+##Bug Reporting
+
+[![Build Status](https://snap-ci.com/codeweft/blockaid/branch/master/build_image)](https://snap-ci.com/codeweft/blockaid/branch/master)
 
 ##Contributing
-
+####Development
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+####Bugs
+Please keep the [issue tracker](http://github.com/codeweft/blockaid/issues) limited to **bug reports**, **feature requests** and **pull requests**. If you are reporting a bug make sure to include information about which browser and operating system you are using as well as the necessary steps to reproduce the issue.
+
+If you have personal support questions use [StackOverflow](http://stackoverflow.com/questions/tagged/blockaid).
 
 ##Build Status
 
