@@ -22,10 +22,6 @@ BlockAid is still under active development. If you plan to use it, following are
 3. Open Chrome browser and goto chrome://extensions
 4. Select developer mode and load unpacked extension. Open the cloned directory
 
-##Bug Reporting
-
-[![Build Status](https://snap-ci.com/codeweft/blockaid/branch/master/build_image)](https://snap-ci.com/codeweft/blockaid/branch/master)
-
 ##Contributing
 ####Development
 1. Fork it
