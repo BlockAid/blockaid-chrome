@@ -38,6 +38,7 @@ If you have personal support questions use [StackOverflow](http://stackoverflow.
 ###Contributors
 * [Hash](https://github.com/codeweft)
 * [Qiu Juntao](https://github.com/abruzzi)
+* [leprechaun](https://github.com/leprechaun)
 
 ##Build Status
 
