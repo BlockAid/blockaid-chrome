@@ -10,7 +10,7 @@ body {
 
 #mainPopup {
     padding: 5px 5px 5px 5px;
-    min-height: 200px;
+    min-height: 100px;
     min-width: 400px;
     overflow:auto;
     font-family: Helvetica, Ubuntu, Arial, sans-serif;
@@ -25,22 +25,51 @@ body {
 
 h3 {
     font-size: 2em;
+    margin-top:20px;
 }
 
 .list {
 	text-align: left;
-	width: 708px;
 	margin: 0 auto;
 }
 
 #mainPopup .list {
 	width: 400px;
 }
+.unstyled {
+	margin:0;
+	padding:0;
+	max-height: 200px;
+	overflow:auto;
+}
 
 .unstyled li {
     list-style: none;
-    padding-bottom: 4px;
-    padding-right: 40px;
+    margin:5px 0;
+    padding:5px 30px 5px 25px;
+    position:relative;
+    overflow:hidden;
+    text-overflow:ellipsis;
+	white-space:nowrap;
+
+}
+.unstyled li:hover {
+	background-color: #ddd;
+	border-radius: 2px;
+}
+
+.unstyled li input {
+	position:absolute;
+	margin:0;
+	padding:0;
+	left:5px;
+	top:6px;
+}
+
+.unstyled li span {
+	text-overflow:ellipsis;
+	overflow:hidden
+	white-space:nowrap;
 }
 
 .done-true {
@@ -53,23 +82,31 @@ i.icon-trash {
 	font-style: normal;
 	cursor: pointer;
 	color: orangered;
-	float: right;
+	position: absolute;
+	right:5px;
+	top:5px;
+	width:15px;
+	text-align: right;
 	display: block;
 }
 
 .input-text {
-	height: 2em;
-	width: 50%;
-	padding: .2em 1em;
+	height: 18px;
+	line-height:18px;
+	width: 278px;
+	padding: 5px 10px;
+	border-radius: 2px 0 0 2px;
+	border:1px solid #3B99FC;
+	outline:0 none;
 }
 
 .input-button {
 	border: none;
-	height: 3em;
-	width: 8em;
-	border-radius: 2px;
+	height: 30px;
+	width: 100px;
+	border-radius:0 2px 2px 0;
 	text-transform: uppercase;
 	background-color: #3B99FC;
 	color: white;
-	padding: .2em 1em;
+	padding: 5px 10px;
 }
