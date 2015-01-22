@@ -1,7 +1,6 @@
-var todos = [
-    {text: 'use.typekit.net', done: true},
-    {text: 'googleapis.com', done: true}
-];
+var todos = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
+
+JSON.parse(localStorage.getItem("extdata") || '{}')
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.method === "getStorage") {
