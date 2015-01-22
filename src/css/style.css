@@ -110,3 +110,25 @@ i.icon-trash {
 	color: white;
 	padding: 5px 10px;
 }
+
+.upload-text {
+	height: 18px;
+	line-height:18px;
+	width: 278px;
+	padding: 5px 10px;
+	border-radius: 2px 0 0 2px;
+	border:1px solid #1bba12;
+	background-color: #cccccc;
+	outline:0 none;
+}
+
+.upload-button {
+	border: none;
+	height: 30px;
+	width: 95px;
+	border-radius:0 2px 2px 0;
+	text-transform: uppercase;
+	background-color: #1bba12;
+	color: white;
+	padding: 5px 10px;
+}

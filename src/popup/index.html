@@ -7,18 +7,22 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <style>
-    
+
     </style>
 </head>
 <body>
 <div id="mainPopup">
-
-    <h3 class="text-center">Domain Block List</h3>
-
+    <div class="text-center"><h3>Domain Block List</h3>
+    </div>
     <div ng-controller="BlockAidController">
+        <form class="text-center">
+            <input class="upload-button" ng-click="upload()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="Upload"/>
+            <input class="upload-text" name='upload_url' ng-disabled="disableText" ng-model="upload_url" type="text"/>
+        </form>
         <form ng-submit="addTodo()" class="text-center">
             <input class="input-text" type="text" ng-model="todoText" size="30"
                    placeholder="Add domains to block"/><input class="input-button" type="submit" value="save"/>
+
         </form>
 
         <div class="list">

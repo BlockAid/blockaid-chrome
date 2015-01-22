@@ -25,12 +25,26 @@ angular.module('BlockAidApp', [])
             chrome.runtime.sendMessage({method: "setStorage", newData: $scope.todos});
         }
 
-        $scope.archive = function () {
-            var oldTodos = $scope.todos;
-            $scope.todos = [];
-            angular.forEach(oldTodos, function (todo) {
-                if (!todo.done) $scope.todos.push(todo);
+        $scope.isDisabled = false;
+        $scope.disableText = true;
+        $scope.upload_url = "click button to upload";
+        $scope.upload = function () {
+            $scope.isDisabled = true;
+            chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
+                $scope.todos = resp.extdata;
+                var data = JSON.stringify($scope.todos)
+                $.ajax({
+                    url: "https://api.myjson.com/bins/4sbff",
+                    type: "PUT",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                    }
+                });
             });
+            $scope.upload_url = 'https://api.myjson.com/bins/4sbff';
+            $scope.isDisabled = false;
         };
 
         chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
