@@ -35,3 +35,34 @@ chrome.webRequest.onBeforeRequest.addListener(
     },
     {urls: ["<all_urls>"]},
     ["blocking"]);
+
+
+function stripTrailingSlashAndProtocol(str) {
+    //if(str.substr(-1) == '/') {
+    //    return str.substr(0, str.length - 1);
+    //}
+    //var protomatch = /^(https?|ftp):\/\//; // NB: not '.*'
+    //str = str.replace(protomatch, '');
+    var a = document.createElement('a');
+    a.href = str;
+    return a.hostname;
+}
+
+chrome.webRequest.onErrorOccurred.addListener(
+    function (details) {
+        console.log(details);
+        if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT" ) {
+            var todoitems = JSON.parse(localStorage.getItem("extdata") || '{}');
+            todoitems.push({text: stripTrailingSlashAndProtocol(details.url), done: false});
+            var arr = {};
+
+            for ( var i=0; i < todoitems.length; i++ )
+                arr[todoitems[i]['text']] = todoitems[i];
+
+            todoitems = new Array();
+            for ( var key in arr )
+                todoitems.push(arr[key]);            
+            localStorage.setItem("extdata", JSON.stringify(todoitems));
+        }
+    },
+    {urls: ["<all_urls>"]});
