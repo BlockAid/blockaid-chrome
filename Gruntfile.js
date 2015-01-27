@@ -1,10 +1,10 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     var pkg = grunt.file.readJSON('package.json');
     var mnf = grunt.file.readJSON('manifest.json');
 
-    var fileMaps = { browserify: {}, uglify: {} };
-    var file, files = grunt.file.expand({cwd:'code/js'}, ['*.js']);
+    var fileMaps = {browserify: {}, uglify: {}};
+    var file, files = grunt.file.expand({cwd: 'code/js'}, ['*.js']);
     for (var i = 0; i < files.length; i++) {
         file = files[i];
         fileMaps.browserify['build/unpacked-dev/js/' + file] = 'code/js/' + file;
@@ -20,49 +20,59 @@ module.exports = function(grunt) {
         clean: ['build/unpacked-dev', 'build/unpacked-prod', 'build/*.crx'],
 
         mkdir: {
-            unpacked: { options: { create: ['build/unpacked-dev', 'build/unpacked-prod'] } },
-            js: { options: { create: ['build/unpacked-dev/js'] } }
+            unpacked: {options: {create: ['build/unpacked-dev', 'build/unpacked-prod']}},
+            js: {options: {create: ['build/unpacked-dev/js']}}
         },
 
         jshint: {
             options: grunt.file.readJSON('lint-options.json'), // see http://www.jshint.com/docs/options/
-            all: { src: ['package.json', 'lint-options.json', 'Gruntfile.js', '**/*.js',
-                '**/*.json', '!lib/**/*', '!node_modules/**/*'] }
+            all: {
+                src: ['package.json', 'lint-options.json', 'Gruntfile.js', '**/*.js',
+                    '**/*.json', '!lib/**/*', '!node_modules/**/*']
+            }
         },
 
         mochaTest: {
-            options: { colors: true, reporter: 'spec' },
+            options: {colors: true, reporter: 'spec'},
             files: ['./**/*.spec.js']
         },
 
         copy: {
-            main: { files: [ {
-                expand: true,
-                cwd: './',
-                src: ['**', '!js/**', '!**/*.md', '!node_modules/**'],
-                dest: 'build/unpacked-dev/'
-            } ] },
-            prod: { files: [ {
-                expand: true,
-                cwd: 'build/unpacked-dev/',
-                src: ['**', '!js/*.js'],
-                dest: 'build/unpacked-prod/'
-            } ] },
-            artifact: { files: [ {
-                expand: true,
-                cwd: 'build/',
-                src: [pkg.name + '-' + pkg.version + '.crx'],
-                dest: process.env.CIRCLE_ARTIFACTS
-            } ] }
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: './',
+                    src: ['**', '!js/**', '!**/*.md', '!node_modules/**'],
+                    dest: 'build/unpacked-dev/'
+                }]
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'build/unpacked-dev/',
+                    src: ['**', '!js/*.js'],
+                    dest: 'build/unpacked-prod/'
+                }]
+            },
+            artifact: {
+                files: [{
+                    expand: true,
+                    cwd: 'build/',
+                    src: [pkg.name + '-' + pkg.version + '.crx'],
+                    dest: process.env.CIRCLE_ARTIFACTS
+                }]
+            }
         },
 
         browserify: {
             build: {
                 files: fileMaps.browserify,
-                options: { bundleOptions: {
-                    debug: true,  // for source maps
-                    standalone: pkg['export-symbol']
-                } }
+                options: {
+                    bundleOptions: {
+                        debug: true,  // for source maps
+                        standalone: pkg['export-symbol']
+                    }
+                }
             }
         },
 
@@ -76,7 +86,7 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            min: { files: fileMaps.uglify }
+            min: {files: fileMaps.uglify}
         },
 
         watch: {
@@ -105,7 +115,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'manifest', 'Extend manifest.json with extra fields from package.json',
-        function() {
+        function () {
             var fields = ['name', 'version', 'description'];
             for (var i = 0; i < fields.length; i++) {
                 var field = fields[i];
@@ -118,9 +128,13 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'circleci', 'Store built extension as CircleCI arfitact',
-        function() {
-            if (process.env.CIRCLE_ARTIFACTS) { grunt.task.run('copy:artifact'); }
-            else { grunt.log.ok('Not on CircleCI, skipped'); }
+        function () {
+            if (process.env.CIRCLE_ARTIFACTS) {
+                grunt.task.run('copy:artifact');
+            }
+            else {
+                grunt.log.ok('Not on CircleCI, skipped');
+            }
         }
     );
 
