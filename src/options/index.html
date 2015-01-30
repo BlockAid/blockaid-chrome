@@ -12,17 +12,17 @@
     <h3>Domain Block List</h3>
 
     <div ng-controller="BlockAidController">
-        <form ng-submit="addTodo()">
-            <input class="input-text" type="text" ng-model="todoText" size="30"
+        <form ng-submit="pushToBlockList()">
+            <input class="input-text" type="text" ng-model="blockItem" size="30"
                    placeholder="Add domains to block"/>
             <input class="input-button" type="submit" value="save"/>
         </form>
         
         <div class="list">
             <ul class="unstyled">
-                <li ng-repeat="todo in todos track by $index">
-                    <input type="checkbox" ng-change="saveItem($index)" ng-model="todo.done">
-                    <span class="done-{{!todo.done}}">{{todo.text}}</span>
+                <li ng-repeat="item in blockList track by $index">
+                    <input type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
+                    <span class="done-{{!item.done}}">{{item.text}}</span>
                     <i ng-click="deleteItem($index)" class="icon-trash">X</i>
                 </li>
             </ul>    

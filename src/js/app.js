@@ -1,28 +1,28 @@
 angular.module('BlockAidApp', [])
     .controller('BlockAidController', ['$scope', function ($scope) {
-        $scope.todos = [];
+        $scope.blockList = [];
 
-        $scope.addTodo = function () {
-            if($scope.todoText) $scope.todos.push({text: $scope.todoText, done: true});
-            $scope.todoText = '';
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.todos});
+        $scope.pushToBlockList = function () {
+            if($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
+            $scope.blockItem = '';
+            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
         };
 
         $scope.remaining = function () {
             var count = 0;
-            angular.forEach($scope.todos, function (todo) {
+            angular.forEach($scope.blockList, function (todo) {
                 count += todo.done ? 0 : 1;
             });
             return count;
         };
 
         $scope.deleteItem = function (index) {
-            $scope.todos.splice(index, 1);
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.todos});
+            $scope.blockList.splice(index, 1);
+            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
         }
 
         $scope.saveItem = function ($index) {
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.todos});
+            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
         }
 
         $scope.isDisabled = false;
@@ -31,8 +31,8 @@ angular.module('BlockAidApp', [])
         $scope.upload = function () {
             $scope.isDisabled = true;
             chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
-                $scope.todos = resp.extdata;
-                var data = JSON.stringify($scope.todos)
+                $scope.blockList = resp.extdata;
+                var data = JSON.stringify($scope.blockList)
                 $.ajax({
                     url: "https://api.myjson.com/bins/4sbff",
                     type: "PUT",
@@ -48,7 +48,7 @@ angular.module('BlockAidApp', [])
         };
 
         chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
-            $scope.todos = resp.extdata;
+            $scope.blockList = resp.extdata;
             $scope.$apply();
         });
     }]);

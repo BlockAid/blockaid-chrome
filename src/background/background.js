@@ -1,4 +1,4 @@
-var todos = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
+var blockList = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
 
 JSON.parse(localStorage.getItem("extdata") || '{}')
 
@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
 });
 
-localStorage.setItem("extdata", JSON.stringify(todos));
+localStorage.setItem("extdata", JSON.stringify(blockList));
 
 function checkUrl(url) {
     var todoitems = JSON.parse(localStorage.getItem("extdata")) || {};
