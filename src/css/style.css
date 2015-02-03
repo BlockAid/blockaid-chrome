@@ -132,3 +132,14 @@ i.icon-trash {
 	color: white;
 	padding: 5px 10px;
 }
+
+#mainPopup .toggle label{
+	position: relative;
+	margin-left: 0;
+}
+
+
+
+label.switch-light {
+	width: 100px;
+}

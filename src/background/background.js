@@ -13,9 +13,18 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
 });
 
-localStorage.setItem("extdata", JSON.stringify(blockList));
+function init() {
+    localStorage.setItem("extdata", JSON.stringify(blockList));
+}
+
 
 function checkUrl(url) {
+    
+    enable = (localStorage.getItem("toggle") === "true") ?  true : false;
+    if(enable !== true) {
+        return false
+    }
+
     var todoitems = JSON.parse(localStorage.getItem("extdata")) || {};
 	var i;
     for (i = 0; i < todoitems.length; i++) {
@@ -63,5 +72,8 @@ chrome.webRequest.onErrorOccurred.addListener(
                 todoitems.push(arr[key]);            
             localStorage.setItem("extdata", JSON.stringify(todoitems));
         }
-    },
-    {urls: ["<all_urls>"]});
+    }, {urls: ["<all_urls>"]
+    }
+);
+
+init();

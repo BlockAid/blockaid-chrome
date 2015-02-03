@@ -51,5 +51,22 @@ angular.module('BlockAidApp', [])
             $scope.blockList = resp.extdata;
             $scope.$apply();
         });
+    }]).controller('ToggleController', ['$scope', function ($scope) {
+        
+        var toggle = getToggle();
+        
+        $scope.toggle = function() {
+            toggle = !toggle;
+            localStorage.setItem("toggle", toggle);
+        };
+
     }]);
+
+function getToggle() {
+    return (localStorage.getItem("toggle") === "true") ?  true : false;
+}
+
+$( document ).ready(function() {
+    $("label.switch-light input").prop('checked', getToggle()); 
+});
 
