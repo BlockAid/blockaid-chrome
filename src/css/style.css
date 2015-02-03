@@ -9,8 +9,9 @@ body {
 }
 
 #mainPopup {
+
     padding: 5px 5px 5px 5px;
-    min-height: 100px;
+    min-height: 350px;
     min-width: 400px;
     overflow:auto;
     font-family: Helvetica, Ubuntu, Arial, sans-serif;
