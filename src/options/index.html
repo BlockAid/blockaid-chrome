@@ -6,11 +6,20 @@
     <script src="../js/app.js"></script>
     
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/toggle-switch.css">
 </head>
 <body>
 <div class="container">
     <h3>Domain Block List</h3>
+    <label class="switch-light switch-candy" ng-controller="ToggleController">
+      <input type="checkbox" ng-click="toggle()">
+      <span>
+        <span>Off</span>
+        <span>On</span>
+      </span>
 
+      <a></a>
+    </label>
     <div ng-controller="BlockAidController">
         <form ng-submit="pushToBlockList()">
             <input class="input-text" type="text" ng-model="blockItem" size="30"
