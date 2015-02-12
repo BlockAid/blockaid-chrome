@@ -1,0 +1,24 @@
+{
+  "name": "domain",
+  "plural": "domains",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "domain": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "boolean",
+      "required": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
