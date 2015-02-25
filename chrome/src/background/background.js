@@ -71,6 +71,29 @@ chrome.webRequest.onErrorOccurred.addListener(
             for ( var key in arr )
                 todoitems.push(arr[key]);            
             localStorage.setItem("extdata", JSON.stringify(todoitems));
+
+            var myData = {
+                "domain": "extension.com",
+                "status": false,
+                "enabled": false,
+            };
+
+
+            var data = JSON.stringify(myData);
+
+            var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+            xmlhttp.open('POST', 'http://192.168.33.10:3000/api/domains', true);
+            xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlhttp.onreadystatechange = function()
+            {
+                if (xmlhttp.readyState == 4)
+                {
+                    // JSON.parse does not evaluate the attacker's scripts.
+                    var resp = JSON.parse(xmlhttp.responseText);
+                    console.log(resp);
+                }
+            }
+            xmlhttp.send(data);
         }
     }, {urls: ["<all_urls>"]
     }
