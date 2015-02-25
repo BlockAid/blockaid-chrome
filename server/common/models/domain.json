@@ -3,6 +3,9 @@
   "plural": "domains",
   "base": "PersistedModel",
   "idInjection": true,
+  "mongodb": {
+    "collection": "DomainCollection"
+  },
   "properties": {
     "domain": {
       "type": "string",

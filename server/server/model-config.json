@@ -27,7 +27,7 @@
     "public": false
   },
   "domain": {
-    "dataSource": "db",
+    "dataSource": "mongodb_production",
     "public": true
   }
 }

@@ -2,5 +2,12 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "mongodb_production": {
+    "name": "mongodb",
+    "connector": "mongodb",
+    "host": "127.0.0.1",
+    "database": "blockAid",
+    "port": 27017
   }
 }
