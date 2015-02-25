@@ -6,6 +6,7 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org nodejs
 service mongod status
 npm install -g strongloop
+npm install forever -g
 npm install
 slc run
 
