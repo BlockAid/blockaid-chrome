@@ -52,14 +52,21 @@ angular.module('BlockAidApp', [])
             $scope.$apply();
         });
     }]).controller('ToggleController', ['$scope', function ($scope) {
-        
+
         var toggle = getToggle();
-        
+
         $scope.toggle = function() {
             toggle = !toggle;
             localStorage.setItem("toggle", toggle);
         };
-
+        if ($scope.toggle === "true") {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
+            });
+        }
+        else {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
+            });
+        }
     }]);
 
 function getToggle() {
@@ -67,6 +74,6 @@ function getToggle() {
 }
 
 $( document ).ready(function() {
-    $("label.switch-light input").prop('checked', getToggle()); 
+    $("label.switch-light input").prop('checked', getToggle());
 });
 

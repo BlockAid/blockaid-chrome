@@ -11,6 +11,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     else if (message.method === "setStorage") {
         localStorage.setItem("extdata", JSON.stringify(message.newData));
     }
+    else if (message.method === "changeIcon") {
+        chrome.browserAction.setIcon({
+            path: message.newIconPath
+        });
+    }
 });
 
 function init() {
@@ -19,14 +24,14 @@ function init() {
 
 
 function checkUrl(url) {
-    
-    enable = (localStorage.getItem("toggle") === "true") ?  true : false;
-    if(enable !== true) {
+
+    enable = (localStorage.getItem("toggle") === "true") ? true : false;
+    if (enable !== true) {
         return false
     }
 
     var todoitems = JSON.parse(localStorage.getItem("extdata")) || {};
-	var i;
+    var i;
     for (i = 0; i < todoitems.length; i++) {
         if (todoitems[i].done) {
             if (url.match(new RegExp("http(s)?:\/\/.*" + todoitems[i].text + ".*")) !== null) {
@@ -59,17 +64,17 @@ function stripTrailingSlashAndProtocol(str) {
 chrome.webRequest.onErrorOccurred.addListener(
     function (details) {
         console.log(details);
-        if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT" ) {
+        if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT") {
             var todoitems = JSON.parse(localStorage.getItem("extdata") || '{}');
             todoitems.push({text: stripTrailingSlashAndProtocol(details.url), done: false});
             var arr = {};
 
-            for ( var i=0; i < todoitems.length; i++ )
+            for (var i = 0; i < todoitems.length; i++)
                 arr[todoitems[i]['text']] = todoitems[i];
 
             todoitems = new Array();
-            for ( var key in arr )
-                todoitems.push(arr[key]);            
+            for (var key in arr)
+                todoitems.push(arr[key]);
             localStorage.setItem("extdata", JSON.stringify(todoitems));
 
             var myData = {
@@ -84,10 +89,8 @@ chrome.webRequest.onErrorOccurred.addListener(
             var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
             xmlhttp.open('POST', 'http://192.168.33.10:3000/api/domains', true);
             xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xmlhttp.onreadystatechange = function()
-            {
-                if (xmlhttp.readyState == 4)
-                {
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
                     // JSON.parse does not evaluate the attacker's scripts.
                     var resp = JSON.parse(xmlhttp.responseText);
                     console.log(resp);
@@ -95,7 +98,8 @@ chrome.webRequest.onErrorOccurred.addListener(
             }
             xmlhttp.send(data);
         }
-    }, {urls: ["<all_urls>"]
+    }, {
+        urls: ["<all_urls>"]
     }
 );
 
