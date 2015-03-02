@@ -1,7 +1,3 @@
-var blockList = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
-
-JSON.parse(localStorage.getItem("extdata") || '{}')
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.method === "getStorage") {
         if (message.extensionSettings === "storage") {
@@ -19,6 +15,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 function init() {
+    var blockList = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
     localStorage.setItem("extdata", JSON.stringify(blockList));
 }
 
