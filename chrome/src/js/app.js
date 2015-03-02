@@ -51,7 +51,6 @@ angular.module('BlockAidApp', [])
             $scope.blockList = resp.extdata;
             $scope.$apply();
         });
-    }]).controller('ToggleController', ['$scope', function ($scope) {
 
         var toggle = getToggle();
 
