@@ -24,7 +24,7 @@
     "page": "src/background/index.html",
     "persistent": true
   },
-  "options_page": "src/popup/index.html",
+  "options_page": "src/options/index.html",
   "browser_action": {
     "default_icon": "icons/default.png",
     "default_title": "BlockAid",

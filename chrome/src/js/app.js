@@ -1,6 +1,8 @@
+
 angular.module('BlockAidApp', [])
     .controller('BlockAidController', ['$scope', function ($scope) {
         $scope.blockList = [];
+        $scope.manifest = chrome.runtime.getManifest();
 
         $scope.pushToBlockList = function () {
             if($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
@@ -14,6 +16,12 @@ angular.module('BlockAidApp', [])
                 count += todo.done ? 0 : 1;
             });
             return count;
+        };
+
+        $scope.openSettings = function () {
+
+            chrome.tabs.create({ url: $scope.manifest.options_page });
+            //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
         };
 
         $scope.deleteItem = function (index) {

@@ -35,12 +35,10 @@ h3 {
 }
 
 #mainPopup .list {
-	width: 400px;
 }
 .unstyled {
 	margin:0;
 	padding:0;
-	max-height: 200px;
 	overflow:auto;
 }
 
