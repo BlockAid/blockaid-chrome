@@ -77,7 +77,7 @@ chrome.webRequest.onErrorOccurred.addListener(
             var myData = {
                 "domain": "extension.com",
                 "status": false,
-                "enabled": false,
+                "enabled": false
             };
 
 
