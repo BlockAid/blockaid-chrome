@@ -12,40 +12,55 @@
     </style>
 </head>
 <body>
-    <div id="mainPopup">
-        <h3 class="text-center">Domain Block List</h3>
-        <div class="toggle">
-            <label class="switch-light switch-candy" ng-controller="ToggleController">
-              <input type="checkbox" ng-click="toggle()">
+<div id="mainPopup">
+    <h3 class="text-center">Domain Block List</h3>
+
+    <div class="toggle">
+        <label class="switch-light switch-candy" ng-controller="ToggleController">
+            <input type="checkbox" ng-click="toggle()">
               <span>
                 <span>Off</span>
                 <span>On</span>
               </span>
+            <a></a>
+        </label>
+    </div>
+    <br/>
 
-              <a></a>
-            </label>
-        </div>
-        <div ng-controller="BlockAidController">
-            <form class="text-center">
-                <input class="upload-button" ng-click="upload()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="Upload"/>
-                <input class="upload-text" name='upload_url' ng-disabled="disableText" ng-model="upload_url" type="text"/>
-            </form>
-            <form ng-submit="pushToBlockList()" class="text-center">
-                <input class="input-text" type="text" ng-model="blockItem" size="30"
-                       placeholder="Add domains to block"/><input class="input-button" type="submit" value="save"/>
+    <div class="toggle">
+        <label class="switch-light switch-candy" ng-controller="ToggleController">
+            <input type="checkbox" ng-click="toggle()">
+              <span>
+                <span>Manual</span>
+                <span>Auto</span>
+              </span>
+            <a></a>
+        </label>
+    </div>
+    <br/>
 
-            </form>
+    <div ng-controller="BlockAidController">
+        <form class="text-center">
+            <input class="upload-button" ng-click="upload()" ng-disabled="isDisabled" ng-model="isDisabled"
+                   type="button" value="Upload"/>
+            <input class="upload-text" name='upload_url' ng-disabled="disableText" ng-model="upload_url" type="text"/>
+        </form>
+        <form ng-submit="pushToBlockList()" class="text-center">
+            <input class="input-text" type="text" ng-model="blockItem" size="30"
+                   placeholder="Add domains to block"/><input class="input-button" type="submit" value="save"/>
 
-            <div class="list">
-                <ul class="unstyled">
-                    <li ng-repeat="item in blockList track by $index">
-                        <input type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
-                        <span class="done-{{!item.done}}" title="{{item.text}}">{{item.text}}</span>
-                        <i ng-click="deleteItem($index)" class="icon-trash">X</i>
-                    </li>
-                </ul>
-            </div>
+        </form>
+
+        <div class="list">
+            <ul class="unstyled">
+                <li ng-repeat="item in blockList track by $index">
+                    <input type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
+                    <span class="done-{{!item.done}}" title="{{item.text}}">{{item.text}}</span>
+                    <i ng-click="deleteItem($index)" class="icon-trash">X</i>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 </body>
 </html>
