@@ -15,33 +15,26 @@
 <div>
     <div ng-controller="BlockAidController">
         <div class="toggle">
-            <label>Status</label>
-            <label class="switch-light switch-candy">
-                <input type="checkbox" ng-click="toggle()">
-              <span>
-                <span>Off</span>
-                <span>On</span>
-              </span>
-                <a></a>
-            </label>
+            <label class="switch-light switch-ios" style="width: 100px" onclick=""><input type="checkbox" ng-click="toggle()">
+                <span>
+                    STATUS
+                    <span>OFF</span>
+                    <span>ON</span>
+                </span><a></a></label>
         </div>
         <br/>
 
         <div class="toggle">
-<label>Mode</label>
-            <label class="switch-light switch-candy">
-                <input type="checkbox" ng-click="toggle()">
-              <span>
-                <span>Manual</span>
-                <span>Auto</span>
-              </span>
-                <a></a>
-            </label>
+            <label class="switch-light switch-ios" style="width: 100px" onclick=""><input type="checkbox" ng-click="toggle()">
+                <span>
+                    MODE
+                    <span>MANUAL</span>
+                    <span>AUTO</span>
+                </span><a></a></label>
         </div>
         <br/>
 
-        <input class="upload-button" ng-click="openSettings()" ng-disabled="isDisabled" ng-model="isDisabled"
-               type="button" value="Options"/>
+        <input class="upload-button" ng-click="openSettings()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="Options"/>
     </div>
 </div>
 </body>
