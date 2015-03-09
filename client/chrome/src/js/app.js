@@ -60,13 +60,13 @@ angular.module('BlockAidApp', [])
             $scope.$apply();
         });
 
-        var toggle = getToggle();
+        var toggleStatus = getToggle();
 
-        $scope.toggle = function() {
+        $scope.toggleStatus = function() {
             toggle = !toggle;
             localStorage.setItem("toggle", toggle);
         };
-        if ($scope.toggle === "true") {
+        if ($scope.toggleStatus === "true") {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
             });
         }
@@ -76,11 +76,11 @@ angular.module('BlockAidApp', [])
         }
     }]);
 
-function getToggle() {
+function getToggleStatus() {
     return (localStorage.getItem("toggle") === "true") ?  true : false;
 }
 
 $( document ).ready(function() {
-    $("label.switch-light input").prop('checked', getToggle());
+    $("label.switch-light input").prop('checked', getToggleStatus());
 });
 
