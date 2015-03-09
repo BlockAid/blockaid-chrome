@@ -60,7 +60,7 @@ angular.module('BlockAidApp', [])
             $scope.$apply();
         });
 
-        var toggleStatus = getToggle();
+        var toggleStatus = getToggleStatus();
 
         $scope.toggleStatus = function() {
             toggle = !toggle;
