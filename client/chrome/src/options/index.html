@@ -17,7 +17,8 @@
 
     <div ng-controller="BlockAidController">
         <div class="toggle">
-            <label class="switch-light switch-ios" style="width: 100px" onclick=""><input type="checkbox" ng-click="toggleStatus()">
+            <label class="switch-light switch-ios">
+                <input type="checkbox" ng-click="toggleStatus(isChecked)" ng-true-value="true" ng-false-value="false" ng-model="isChecked">
                 <span>
                     STATUS
                     <span>OFF</span>
@@ -27,7 +28,8 @@
         <br/>
 
         <div class="toggle">
-            <label class="switch-light switch-ios" style="width: 100px" onclick=""><input type="checkbox" ng-click="toggleMode()">
+            <label class="switch-light switch-ios">
+                <input type="checkbox">
                 <span>
                     MODE
                     <span>MANUAL</span>
