@@ -20,7 +20,7 @@ BlockAid is still under active development. If you plan to use it, following are
 1. Clone the project repository
 2. git clone git@github.com:codeweft/blockaid.git
 3. Open Chrome browser and goto chrome://extensions
-4. Select developer mode and load unpacked extension. Open the cloned directory 'blockaid/chrome'
+4. Select developer mode and load unpacked extension. Open the cloned directory 'blockaid/client/chrome'
 
 ##Contributing
 ####Development
