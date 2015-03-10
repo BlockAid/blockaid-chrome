@@ -78,7 +78,6 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         else {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
             });
-            $scope.blockList =  JSON.parse(localStorage.getItem("manualBlockList"));
         }
         localStorage.setItem("status", status);
         $scope.apply;
@@ -90,12 +89,15 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         if (mode) {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
             });
+            $scope.blockList =  JSON.parse(localStorage.getItem("autoBlockList"));
         }
         else {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
             });
+            $scope.blockList =  JSON.parse(localStorage.getItem("manualBlockList"));
         }
         localStorage.setItem("mode", mode);
+        $scope.apply;
     };
 
     $scope.download = function () {
