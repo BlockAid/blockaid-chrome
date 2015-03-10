@@ -1,36 +1,35 @@
-angular.module('BlockAidApp', [])
-    .controller('BlockAidController', ['$scope', function ($scope) {
-        $scope.blockList = [];
+angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', function ($scope) {
+    $scope.blockList = [];
 
-        $scope.manifest = chrome.runtime.getManifest();
+    $scope.manifest = chrome.runtime.getManifest();
 
-        $scope.pushToBlockList = function () {
-            if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
-            $scope.blockItem = '';
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
-        };
+    $scope.pushToBlockList = function () {
+        if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
+        $scope.blockItem = '';
+        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+    };
 
-        $scope.remaining = function () {
-            var count = 0;
-            angular.forEach($scope.blockList, function (todo) {
-                count += todo.done ? 0 : 1;
-            });
-            return count;
-        };
+    $scope.remaining = function () {
+        var count = 0;
+        angular.forEach($scope.blockList, function (todo) {
+            count += todo.done ? 0 : 1;
+        });
+        return count;
+    };
 
-        $scope.openSettings = function () {
-            chrome.tabs.create({url: $scope.manifest.options_page});
-            //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
-        };
+    $scope.openSettings = function () {
+        chrome.tabs.create({url: $scope.manifest.options_page});
+        //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
+    };
 
-        $scope.deleteItem = function (index) {
-            $scope.blockList.splice(index, 1);
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
-        }
+    $scope.deleteItem = function (index) {
+        $scope.blockList.splice(index, 1);
+        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+    }
 
-        $scope.saveItem = function ($index) {
-            chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
-        }
+    $scope.saveItem = function ($index) {
+        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+    }
 
 ////Upload @wip
 //        $scope.upload_url = "click button to upload";
@@ -55,23 +54,38 @@ angular.module('BlockAidApp', [])
 //            $scope.isDisabled = false;
 //        };
 
-        $scope.isChecked = localStorage.getItem("toggle");
+    $scope.status = localStorage.getItem("status");
+    $scope.toggleStatus = function () {
+        var status = $scope.status === "true" ? false: true ;
+        if (status) {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
+            });
+        }
+        else {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
+            });
+        }
+        localStorage.setItem("status", status );
+    };
 
-        $scope.toggleStatus = function (isChecked) {
-            console.log($scope.isChecked )
-            localStorage.setItem("toggle", $scope.isChecked);
-        };
-        //if ($scope.toggle === "true") {
-        //    chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
-        //    });
-        //}
-        //else {
-        //    chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
-        //    });
-        //}
+    $scope.mode = localStorage.getItem("mode");
+    $scope.toggleMode = function () {
+        var mode = $scope.mode === "true" ? false : true;
+        if (mode) {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
+            });
+        }
+        else {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
+            });
+        }
+        localStorage.setItem("mode", mode);
+    };
 
-        chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
-            $scope.blockList = resp.extdata;
-            $scope.$apply();
-        });
-    }]);
+
+    chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
+        $scope.blockList = resp.extdata;
+        $scope.$apply();
+    });
+}]);
+
