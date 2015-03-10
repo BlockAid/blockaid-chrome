@@ -9,6 +9,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 function init() {
     var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
     localStorage.setItem("manualBlockList", JSON.stringify(blockList));
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.myjson.com/bins/4sbff',
+            success: function (data) {
+                localStorage.setItem("autoBlockList", JSON.stringify(data));
+            }
+        });
+    });
 }
 
 
