@@ -22,6 +22,10 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
         //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
     };
 
+    $scope.openWebSite = function () {
+        chrome.tabs.create({url: "http://www.codeweft.com/blockaid/"});
+    };
+
     $scope.deleteItem = function (index) {
         $scope.blockList.splice(index, 1);
         chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});

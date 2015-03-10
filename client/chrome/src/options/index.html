@@ -13,9 +13,10 @@
 </head>
 <body>
 <div id="mainPopup">
-    <h3 class="text-center">BlockAid</h3>
+
 
     <div ng-controller="BlockAidController">
+        <h3 class="text-center" ng-click="openWebSite()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="BlockAid"/>BlockAid</h3>
         <div class="toggle">
             <label class="switch-light switch-ios">
                 <input type="checkbox" ng-click="toggleStatus()" ng-true-value="true" ng-false-value="false" ng-model="status">
