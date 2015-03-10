@@ -4,6 +4,7 @@
     <script src="../../lib/jquery/jquery.min.js"></script>
     <script src="../../lib/angular/angular.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/FileSaver.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/toggle-switch.css">
@@ -13,7 +14,6 @@
 </head>
 <body>
 <div id="mainPopup">
-
 
     <div ng-controller="BlockAidController">
         <h3 class="text-center" ng-click="openWebSite()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="BlockAid"/>BlockAid</h3>
@@ -59,6 +59,7 @@
                 </li>
             </ul>
         </div>
+        <input ng-click="download()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="Download List"/>
     </div>
 </div>
 </body>

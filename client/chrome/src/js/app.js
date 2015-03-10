@@ -85,5 +85,11 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
         }
         localStorage.setItem("mode", mode);
     };
+
+    $scope.download = function () {
+        var blockList = JSON.stringify($scope.blockList)
+        var blob = new Blob([blockList], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "BlockAidList.json");
+    };
 }]);
 
