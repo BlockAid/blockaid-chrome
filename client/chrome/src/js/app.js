@@ -1,12 +1,12 @@
 angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', function ($scope) {
-    $scope.blockList = [];
+    $scope.blockList = JSON.parse(localStorage.getItem("extdata") || '[]')
 
     $scope.manifest = chrome.runtime.getManifest();
 
     $scope.pushToBlockList = function () {
         if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
         $scope.blockItem = '';
-        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
     };
 
     $scope.remaining = function () {
@@ -28,11 +28,11 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
 
     $scope.deleteItem = function (index) {
         $scope.blockList.splice(index, 1);
-        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
     }
 
     $scope.saveItem = function ($index) {
-        chrome.runtime.sendMessage({method: "setStorage", newData: $scope.blockList});
+        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
     }
 
 ////Upload @wip
@@ -85,11 +85,5 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
         }
         localStorage.setItem("mode", mode);
     };
-
-
-    chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
-        $scope.blockList = resp.extdata;
-        $scope.$apply();
-    });
 }]);
 

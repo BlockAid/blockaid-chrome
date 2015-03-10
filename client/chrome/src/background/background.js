@@ -1,13 +1,5 @@
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.method === "getStorage") {
-        if (message.extensionSettings === "storage") {
-            sendResponse({extdata: JSON.parse(localStorage.getItem("extdata") || '{}')});
-        }
-    }
-    else if (message.method === "setStorage") {
-        localStorage.setItem("extdata", JSON.stringify(message.newData));
-    }
-    else if (message.method === "changeIcon") {
+    if (message.method === "changeIcon") {
         chrome.browserAction.setIcon({
             path: message.newIconPath
         });
