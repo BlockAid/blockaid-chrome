@@ -1,4 +1,6 @@
-angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', function ($scope) {
+var blockAidApp = angular.module('BlockAidApp', []);
+
+blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.blockList = JSON.parse(localStorage.getItem("extdata") || '[]')
 
     $scope.manifest = chrome.runtime.getManifest();
@@ -60,7 +62,7 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
 
     $scope.status = localStorage.getItem("status");
     $scope.toggleStatus = function () {
-        var status = $scope.status === "true" ? false: true ;
+        var status = $scope.status === "true" ? false : true;
         if (status) {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
             });
@@ -91,5 +93,34 @@ angular.module('BlockAidApp', []).controller('BlockAidController', ['$scope', fu
         var blob = new Blob([blockList], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "BlockAidList.json");
     };
+
+    $scope.showContent = function($fileContent){
+        $scope.content = $fileContent;
+    };
 }]);
+
+
+
+//blockAidApp.directive('onReadFile', function ($parse) {
+//    return {
+//        restrict: 'A',
+//        scope: false,
+//        link: function(scope, element, attrs) {
+//            var fn = $parse(attrs.onReadFile);
+//
+//            element.on('change', function(onChangeEvent) {
+//                var reader = new FileReader();
+//
+//                reader.onload = function(onLoadEvent) {
+//                    scope.$apply(function() {
+//                        fn(scope, {$fileContent:onLoadEvent.target.result});
+//                    });
+//                };
+//
+//                reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+//            });
+//        }
+//    };
+//});
+
 
