@@ -97,6 +97,21 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.showContent = function($fileContent){
         $scope.content = $fileContent;
     };
+
+    window.addEventListener("storage", function(event) {
+        var key = event.key;
+        var newValue = event.newValue;
+        var oldValue = event.oldValue;
+        var url = event.url;
+        var storageArea = event.storageArea;
+        console.log(key)
+        console.log(newValue)
+        console.log(oldValue)
+        console.log(url)
+        console.log(storageArea)
+
+
+    });
 }]);
 
 
