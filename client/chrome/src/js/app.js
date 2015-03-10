@@ -1,14 +1,14 @@
 var blockAidApp = angular.module('BlockAidApp', []);
 
 blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
-    $scope.blockList = JSON.parse(localStorage.getItem("extdata") || '[]')
+    $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
 
     $scope.manifest = chrome.runtime.getManifest();
 
     $scope.pushToBlockList = function () {
         if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
         $scope.blockItem = '';
-        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
+        localStorage.setItem("manualBlockList", JSON.stringify($scope.blockList));
     };
 
     $scope.remaining = function () {
@@ -30,11 +30,11 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     $scope.deleteItem = function (index) {
         $scope.blockList.splice(index, 1);
-        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
+        localStorage.setItem("manualBlockList", JSON.stringify($scope.blockList));
     }
 
     $scope.saveItem = function ($index) {
-        localStorage.setItem("extdata", JSON.stringify($scope.blockList));
+        localStorage.setItem("manualBlockList", JSON.stringify($scope.blockList));
     }
 
 ////Upload @wip
@@ -44,7 +44,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 //        $scope.upload = function () {
 //            $scope.isDisabled = true;
 //            chrome.runtime.sendMessage({method: "getStorage", extensionSettings: "storage"}, function (resp) {
-//                $scope.blockList = resp.extdata;
+//                $scope.blockList = resp.manualBlockList;
 //                var data = JSON.stringify($scope.blockList)
 //                $.ajax({
 //                    url: "https://api.myjson.com/bins/4sbff",

@@ -7,8 +7,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 function init() {
-    var blockList = JSON.parse(localStorage.getItem("extdata") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
-    localStorage.setItem("extdata", JSON.stringify(blockList));
+    var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
+    localStorage.setItem("manualBlockList", JSON.stringify(blockList));
 }
 
 
@@ -19,7 +19,7 @@ function checkUrl(url) {
         return false
     }
 
-    var todoitems = JSON.parse(localStorage.getItem("extdata")) || {};
+    var todoitems = JSON.parse(localStorage.getItem("manualBlockList")) || {};
     var i;
     for (i = 0; i < todoitems.length; i++) {
         if (todoitems[i].done) {
@@ -54,7 +54,7 @@ chrome.webRequest.onErrorOccurred.addListener(
     function (details) {
         console.log(details);
         if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT") {
-            var todoitems = JSON.parse(localStorage.getItem("extdata") || '{}');
+            var todoitems = JSON.parse(localStorage.getItem("manualBlockList") || '{}');
             todoitems.push({text: stripTrailingSlashAndProtocol(details.url), done: false});
             var arr = {};
 
@@ -64,7 +64,7 @@ chrome.webRequest.onErrorOccurred.addListener(
             todoitems = new Array();
             for (var key in arr)
                 todoitems.push(arr[key]);
-            localStorage.setItem("extdata", JSON.stringify(todoitems));
+            localStorage.setItem("manualBlockList", JSON.stringify(todoitems));
 
             var myData = {
                 "domain": "extension.com",
