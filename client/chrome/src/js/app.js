@@ -1,7 +1,14 @@
 var blockAidApp = angular.module('BlockAidApp', []);
 
 blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
-    $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
+    $scope.status = localStorage.getItem("status");
+    $scope.blockList = function () {
+        if ($scope.status === 'false') {
+            return JSON.parse(localStorage.getItem("manualBlockList") || '[]')
+        }else{
+            return JSON.parse(localStorage.getItem("autoBlockList") || '[]')
+        }
+    }
 
     $scope.manifest = chrome.runtime.getManifest();
 
@@ -60,18 +67,21 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 //            $scope.isDisabled = false;
 //        };
 
-    $scope.status = localStorage.getItem("status");
+
     $scope.toggleStatus = function () {
         var status = $scope.status === "true" ? false : true;
         if (status) {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
             });
+            $scope.blockList =  JSON.parse(localStorage.getItem("autoBlockList"));
         }
         else {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
             });
+            $scope.blockList =  JSON.parse(localStorage.getItem("manualBlockList"));
         }
-        localStorage.setItem("status", status );
+        localStorage.setItem("status", status);
+        $scope.apply;
     };
 
     $scope.mode = localStorage.getItem("mode");
@@ -94,11 +104,11 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         saveAs(blob, "BlockAidList.json");
     };
 
-    $scope.showContent = function($fileContent){
+    $scope.showContent = function ($fileContent) {
         $scope.content = $fileContent;
     };
 
-    window.addEventListener("storage", function(event) {
+    window.addEventListener("storage", function (event) {
         var key = event.key;
         var newValue = event.newValue;
         var oldValue = event.oldValue;
@@ -113,7 +123,6 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     });
 }]);
-
 
 
 //blockAidApp.directive('onReadFile', function ($parse) {
