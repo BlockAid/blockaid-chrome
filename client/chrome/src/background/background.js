@@ -41,8 +41,9 @@ function checkUrl(url) {
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
+
     function (details) {
-        return {cancel: checkUrl(details.url) !== false};
+        if (localStorage.getItem("status", status) === "true") return {cancel: checkUrl(details.url) !== false};
     },
     {urls: ["<all_urls>"]},
     ["blocking"]);
