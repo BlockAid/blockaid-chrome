@@ -1,28 +1,30 @@
 {
-  "name": "BlockAidServer",
-  "version": "1.0.0",
-  "main": "server/server.js",
-  "scripts": {
-    "pretest": "jshint ."
-  },
-  "dependencies": {
-    "compression": "^1.0.3",
-    "errorhandler": "^1.1.1",
-    "loopback": "^2.8.0",
-    "loopback-boot": "^2.4.0",
-    "loopback-connector-mongodb": "^1.8.0",
-    "loopback-datasource-juggler": "^2.7.0",
-    "serve-favicon": "^2.0.1"
-  },
-  "optionalDependencies": {
-    "loopback-explorer": "^1.1.0"
-  },
-  "devDependencies": {
-    "jshint": "^2.5.6"
-  },
+  "name": "BlockAid",
+  "version": "0.1.1",
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/codeweft/blockaid"
   },
-  "description": "BlockAidServer"
+  "description": "A extension to speed up page load",
+  "homepage": "https://codeweft.com/blockaid",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-mkdir": "~0.1.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-mocha-test": "~0.10.0",
+    "browserify": "~3.39.0",
+    "grunt-browserify": "~2.0.3",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-exec": "~0.4.5",
+    "eventemitter2": "^0.4.13",
+    "grunt-contrib-watch": "~0.6.1",
+    "sinon": "~1.10.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "export-symbol": "extensionSkeleton.exports"
 }
