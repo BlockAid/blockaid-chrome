@@ -1,10 +1,3 @@
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.method === "changeIcon") {
-        chrome.browserAction.setIcon({
-            path: message.newIconPath
-        });
-    }
-});
 
 function init() {
     var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
@@ -40,25 +33,21 @@ function checkUrl(url) {
     return false;
 }
 
-chrome.webRequest.onBeforeRequest.addListener(
-
-    function (details) {
-        if (localStorage.getItem("status", status) === "true") return {cancel: checkUrl(details.url) !== false};
-    },
-    {urls: ["<all_urls>"]},
-    ["blocking"]);
-
-
 function stripTrailingSlashAndProtocol(str) {
-    //if(str.substr(-1) == '/') {
-    //    return str.substr(0, str.length - 1);
-    //}
-    //var protomatch = /^(https?|ftp):\/\//; // NB: not '.*'
-    //str = str.replace(protomatch, '');
     var a = document.createElement('a');
     a.href = str;
     return a.hostname;
 }
+
+init();
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (message.method === "changeIcon") {
+        chrome.browserAction.setIcon({
+            path: message.newIconPath
+        });
+    }
+});
 
 chrome.webRequest.onErrorOccurred.addListener(
     function (details) {
@@ -102,4 +91,10 @@ chrome.webRequest.onErrorOccurred.addListener(
     }
 );
 
-init();
+chrome.webRequest.onBeforeRequest.addListener(
+
+    function (details) {
+        if (localStorage.getItem("status", status) === "true") return {cancel: checkUrl(details.url) !== false};
+    },
+    {urls: ["<all_urls>"]},
+    ["blocking"])
