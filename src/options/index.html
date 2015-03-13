@@ -39,11 +39,6 @@
         </div>
         <br/>
 
-        <!--<form class="text-center">-->
-            <!--<input class="upload-button" ng-click="upload()" ng-disabled="isDisabled" ng-model="isDisabled"-->
-                   <!--type="button" value="Upload"/>-->
-            <!--<input class="upload-text" name='upload_url' ng-disabled="disableText" ng-model="upload_url" type="text"/>-->
-        <!--</form>-->
         <form ng-submit="pushToBlockList()" class="text-center">
             <input class="input-text" type="text" ng-model="blockItem" size="30"
                    placeholder="Add domains to block"/><input class="input-button" type="submit" value="save"/>
@@ -59,12 +54,6 @@
                 </li>
             </ul>
         </div>
-        <!--<input ng-click="download()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="Download List"/>-->
-        <!--<input type="file" on-read-file="showContent($fileContent)" />-->
-        <!--<div ng-if="content">-->
-            <!--<h2>File content is:</h2>-->
-            <!--<pre>{{ content }}</pre>-->
-        <!--</div>-->
     </div>
 </div>
 </body>
