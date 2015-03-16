@@ -71,4 +71,5 @@
 //            $scope.upload_url = 'https://api.myjson.com/bins/4sbff';
 //            $scope.isDisabled = false;
 //        };
-
+////Open a Special Options Page
+//chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });

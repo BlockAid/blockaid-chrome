@@ -29,7 +29,6 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     $scope.openSettings = function () {
         chrome.tabs.create({url: $scope.manifest.options_page});
-        //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
     };
 
     $scope.openWebSite = function () {

@@ -53,7 +53,7 @@ chrome.webRequest.onErrorOccurred.addListener(
     function (details) {
         console.log(details);
         if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT") {
-            var todoitems = JSON.parse(localStorage.getItem("manualBlockList") || '{}');
+            var todoitems = JSON.parse(localStorage.getItem("autoBlockList") || '{}');
             todoitems.push({text: stripTrailingSlashAndProtocol(details.url), done: false});
             var arr = {};
 
@@ -63,7 +63,7 @@ chrome.webRequest.onErrorOccurred.addListener(
             todoitems = new Array();
             for (var key in arr)
                 todoitems.push(arr[key]);
-            localStorage.setItem("manualBlockList", JSON.stringify(todoitems));
+            localStorage.setItem("autoBlockList", JSON.stringify(todoitems));
 
             var myData = {
                 "domain": "extension.com",
@@ -98,3 +98,8 @@ chrome.webRequest.onBeforeRequest.addListener(
     },
     {urls: ["<all_urls>"]},
     ["blocking"])
+
+
+//chrome.location.onLocationUpdate.addListener(function(position) {
+//    console.log(JSON.stringify(position));
+//});
