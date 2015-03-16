@@ -73,3 +73,7 @@
 //        };
 ////Open a Special Options Page
 //chrome.tabs.create({ url: "chrome://extensions/?options=" + chrome.runtime.id });
+////Get Location in BackGround
+//chrome.location.onLocationUpdate.addListener(function(position) {
+//    console.log(JSON.stringify(position));
+//});

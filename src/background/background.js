@@ -100,6 +100,3 @@ chrome.webRequest.onBeforeRequest.addListener(
     ["blocking"])
 
 
-//chrome.location.onLocationUpdate.addListener(function(position) {
-//    console.log(JSON.stringify(position));
-//});
