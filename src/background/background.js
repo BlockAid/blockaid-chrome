@@ -15,12 +15,6 @@ function init() {
 
 
 function checkUrl(url) {
-
-    enable = (localStorage.getItem("toggle") === "true") ? true : false;
-    if (enable !== true) {
-        return false
-    }
-
     var todoitems = [];
     if (localStorage.getItem("mode")==="true") {
         todoitems = JSON.parse(localStorage.getItem("autoBlockList") || '[]');
