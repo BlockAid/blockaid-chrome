@@ -18,6 +18,19 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     }
 
+    $scope.syncAuto = function (callback) {
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.myjson.com/bins/4sbff',
+            success: function (data) {
+                localStorage.setItem("autoBlockList", JSON.stringify(data));
+                console.log("not done")
+                return data;
+            }
+        })
+    }
+
+
     $scope.init = function () {
         $scope.status = localStorage.getItem("status");
         $scope.manifest = chrome.runtime.getManifest();
@@ -27,11 +40,14 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
             $scope.inputFormToggle = {'visibility': 'visible'};
             $scope.checked = false
         } else {
+            $scope.syncAuto();
+            console.log("done")
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
             $scope.inputFormToggle = {'visibility': 'hidden'};
             $scope.checked = true
         }
         $scope.setIcon()
+
     };
     $scope.init();
 
@@ -79,4 +95,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         $scope.init();
     };
 }])
-;
+
+$(document).ajaxStop(function () {
+    // 0 === $.active
+});
