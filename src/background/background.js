@@ -21,7 +21,12 @@ function checkUrl(url) {
         return false
     }
 
-    var todoitems = JSON.parse(localStorage.getItem("manualBlockList")) || {};
+    var todoitems = [];
+    if (localStorage.getItem("mode")==="true") {
+        todoitems = JSON.parse(localStorage.getItem("autoBlockList") || '[]');
+    }else{
+        todoitems = JSON.parse(localStorage.getItem("manualBlockList") || '[]');
+    }
     var i;
     for (i = 0; i < todoitems.length; i++) {
         if (todoitems[i].done) {
@@ -94,7 +99,9 @@ chrome.webRequest.onErrorOccurred.addListener(
 chrome.webRequest.onBeforeRequest.addListener(
 
     function (details) {
-        if (localStorage.getItem("status", status) === "true") return {cancel: checkUrl(details.url) !== false};
+        if (localStorage.getItem("status") === "true") {
+            return {cancel: checkUrl(details.url) !== false};
+        }
     },
     {urls: ["<all_urls>"]},
     ["blocking"])
