@@ -104,3 +104,4 @@
 //    var blob = new Blob([blockList], {type: "text/plain;charset=utf-8"});
 //    saveAs(blob, "BlockAidList.json");
 //};
+//<script src="../js/FileSaver.js"></script>
