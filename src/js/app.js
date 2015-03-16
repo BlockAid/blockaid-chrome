@@ -5,7 +5,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         $scope.status = localStorage.getItem("status");
         $scope.manifest = chrome.runtime.getManifest();
         $scope.mode = localStorage.getItem("mode");
-        if (status) {
+        if ($scope.status == 'true') {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
             });
         }
