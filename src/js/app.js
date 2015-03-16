@@ -5,10 +5,12 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         $scope.status = localStorage.getItem("status");
         $scope.manifest = chrome.runtime.getManifest();
         $scope.mode = localStorage.getItem("mode");
-        if ($scope.status === 'false') {
+        if ($scope.mode === 'false') {
             $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
+            $scope.checked = false
         } else {
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
+            $scope.checked = true
         }
     };
     $scope.init();
@@ -49,7 +51,6 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         if (status) {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
             });
-            $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList"));
         }
         else {
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
@@ -64,12 +65,14 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         var mode = $scope.mode === "true" ? false : true;
         if (mode) {
             $scope.inputFormToggle = {'visibility': 'hidden'};
+            $scope.checked = true
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
             });
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList"));
         }
         else {
             $scope.inputFormToggle = {'visibility': 'visible'};
+            $scope.checked = false
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
             });
             $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList"));

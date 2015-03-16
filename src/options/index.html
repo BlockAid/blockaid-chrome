@@ -16,7 +16,7 @@
 <div id="mainPopup">
 
     <div ng-controller="BlockAidController">
-        <h3 class="text-center" ng-click="openWebSite()" ng-disabled="isDisabled" ng-model="isDisabled" type="button" value="BlockAid"/>BlockAid</h3>
+        <h3 class="text-center" ng-click="openWebSite()" type="button" value="BlockAid"/>BlockAid</h3>
         <div class="toggle">
             <label class="switch-light switch-ios">
                 <input type="checkbox" ng-click="toggleStatus()" ng-true-value="true" ng-false-value="false" ng-model="status">
@@ -48,7 +48,7 @@
         <div class="list">
             <ul class="unstyled">
                 <li ng-repeat="item in blockList track by $index">
-                    <input type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
+                    <input ng-disabled="checked" type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
                     <span class="done-{{!item.done}}" title="{{item.text}}">{{item.text}}</span>
                     <i ng-click="deleteItem($index)" class="icon-trash">X</i>
                 </li>
