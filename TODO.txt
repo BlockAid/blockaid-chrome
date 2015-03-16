@@ -105,3 +105,14 @@
 //    saveAs(blob, "BlockAidList.json");
 //};
 //<script src="../js/FileSaver.js"></script>
+////Auto Sync Server
+//setInterval(function () {
+//        $.ajax({
+//            type: 'GET',
+//            url: 'https://api.myjson.com/bins/4sbff',
+//            success: function (data) {
+//                localStorage.setItem("autoBlockList", JSON.stringify(data));
+//            }
+//        })
+//    }, 100000
+//)
