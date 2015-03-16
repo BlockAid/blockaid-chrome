@@ -1,16 +1,17 @@
 var blockAidApp = angular.module('BlockAidApp', []);
 
 blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
-    $scope.status = localStorage.getItem("status");
-    $scope.manifest = chrome.runtime.getManifest();
-    $scope.mode = localStorage.getItem("mode");
-    $scope.blockList = function () {
+    $scope.init = function () {
+        $scope.status = localStorage.getItem("status");
+        $scope.manifest = chrome.runtime.getManifest();
+        $scope.mode = localStorage.getItem("mode");
         if ($scope.status === 'false') {
-            return JSON.parse(localStorage.getItem("manualBlockList") || '[]')
+            $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
         } else {
-            return JSON.parse(localStorage.getItem("autoBlockList") || '[]')
+            $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
         }
-    }
+    };
+    $scope.init();
 
     $scope.pushToBlockList = function () {
         if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
@@ -82,6 +83,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         var blob = new Blob([blockList], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "BlockAidList.json");
     };
+
 
 
 }]);
