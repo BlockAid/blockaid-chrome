@@ -4,7 +4,6 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.status = localStorage.getItem("status");
     $scope.manifest = chrome.runtime.getManifest();
     $scope.mode = localStorage.getItem("mode");
-
     $scope.blockList = function () {
         if ($scope.status === 'false') {
             return JSON.parse(localStorage.getItem("manualBlockList") || '[]')
@@ -63,11 +62,13 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.toggleMode = function () {
         var mode = $scope.mode === "true" ? false : true;
         if (mode) {
+            $scope.inputFormToggle = {'visibility': 'hidden'};
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
             });
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList"));
         }
         else {
+            $scope.inputFormToggle = {'visibility': 'visible'};
             chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
             });
             $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList"));
