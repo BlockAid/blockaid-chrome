@@ -1,31 +1,37 @@
 var blockAidApp = angular.module('BlockAidApp', []);
 
 blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
+
+    $scope.setIcon = function () {
+        if ($scope.status == 'true') {
+            if ($scope.mode === 'false') {
+                chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
+                });
+            } else {
+                chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
+                });
+            }
+        } else {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
+            });
+        }
+
+    }
+
     $scope.init = function () {
         $scope.status = localStorage.getItem("status");
         $scope.manifest = chrome.runtime.getManifest();
         $scope.mode = localStorage.getItem("mode");
-        if ($scope.status == 'true') {
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
-            });
-        }
-        else {
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
-            });
-        }
         if ($scope.mode === 'false') {
             $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
             $scope.inputFormToggle = {'visibility': 'visible'};
             $scope.checked = false
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
-            });
         } else {
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
             $scope.inputFormToggle = {'visibility': 'hidden'};
             $scope.checked = true
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
-            });
         }
+        $scope.setIcon()
     };
     $scope.init();
 
@@ -72,4 +78,5 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         localStorage.setItem("mode", mode);
         $scope.init();
     };
-}]);
+}])
+;
