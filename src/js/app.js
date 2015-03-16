@@ -5,12 +5,26 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         $scope.status = localStorage.getItem("status");
         $scope.manifest = chrome.runtime.getManifest();
         $scope.mode = localStorage.getItem("mode");
+        if (status) {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
+            });
+        }
+        else {
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
+            });
+        }
         if ($scope.mode === 'false') {
             $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[]')
+            $scope.inputFormToggle = {'visibility': 'visible'};
             $scope.checked = false
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
+            });
         } else {
             $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
+            $scope.inputFormToggle = {'visibility': 'hidden'};
             $scope.checked = true
+            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
+            });
         }
     };
     $scope.init();
@@ -48,45 +62,14 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     $scope.toggleStatus = function () {
         var status = $scope.status === "true" ? false : true;
-        if (status) {
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/default.png"}, function () {
-            });
-        }
-        else {
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/disabled.png"}, function () {
-            });
-        }
         localStorage.setItem("status", status);
-        $scope.apply;
+        $scope.init();
     };
 
 
     $scope.toggleMode = function () {
         var mode = $scope.mode === "true" ? false : true;
-        if (mode) {
-            $scope.inputFormToggle = {'visibility': 'hidden'};
-            $scope.checked = true
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/auto.png"}, function () {
-            });
-            $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList"));
-        }
-        else {
-            $scope.inputFormToggle = {'visibility': 'visible'};
-            $scope.checked = false
-            chrome.runtime.sendMessage({method: "changeIcon", newIconPath: "../../icons/manual.png"}, function () {
-            });
-            $scope.blockList = JSON.parse(localStorage.getItem("manualBlockList"));
-        }
         localStorage.setItem("mode", mode);
-        $scope.apply;
+        $scope.init();
     };
-
-    $scope.download = function () {
-        var blockList = JSON.stringify($scope.blockList)
-        var blob = new Blob([blockList], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "BlockAidList.json");
-    };
-
-
-
 }]);
