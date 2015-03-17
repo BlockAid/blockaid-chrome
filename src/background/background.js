@@ -2,15 +2,6 @@
 function init() {
     var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"domain":"use.typekit.net","enabled":true},{"domain":"googleapis.com","enabled":true}]')
     localStorage.setItem("manualBlockList", JSON.stringify(blockList));
-    $(document).ready(function () {
-        $.ajax({
-            type: 'GET',
-            url: 'http://0.0.0.0:3000/api/domains',
-            success: function (data) {
-                localStorage.setItem("autoBlockList", JSON.stringify(data));
-            }
-        });
-    });
 }
 
 
