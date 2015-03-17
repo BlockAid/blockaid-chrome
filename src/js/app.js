@@ -21,10 +21,11 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.syncAuto = function (callback) {
         $.ajax({
             type: 'GET',
-            url: 'https://api.myjson.com/bins/4sbff',
+            url: 'http://0.0.0.0:3000/api/domains',
             success: function (data) {
                 localStorage.setItem("autoBlockList", JSON.stringify(data));
                 $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
+                $scope.apply()
             }
         })
     }
@@ -51,7 +52,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.init();
 
     $scope.pushToBlockList = function () {
-        if ($scope.blockItem) $scope.blockList.push({text: $scope.blockItem, done: true});
+        if ($scope.blockItem) $scope.blockList.push({domain: $scope.blockItem, enabled: true});
         $scope.blockItem = '';
         localStorage.setItem("manualBlockList", JSON.stringify($scope.blockList));
     };
@@ -59,7 +60,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.remaining = function () {
         var count = 0;
         angular.forEach($scope.blockList, function (todo) {
-            count += todo.done ? 0 : 1;
+            count += todo.enabled ? 0 : 1;
         });
         return count;
     };

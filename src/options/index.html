@@ -48,8 +48,8 @@
         <div class="list">
             <ul class="unstyled">
                 <li ng-repeat="item in blockList track by $index">
-                    <input ng-disabled="checked" type="checkbox" ng-change="saveItem($index)" ng-model="item.done">
-                    <span class="done-{{!item.done}}" title="{{item.text}}">{{item.text}}</span>
+                    <input ng-disabled="checked" type="checkbox" ng-change="saveItem($index)" ng-model="item.enabled">
+                    <span class="done-{{!item.enabled}}" title="{{item.domain}}">{{item.domain}}</span>
                     <i ng-click="deleteItem($index)" class="icon-trash">X</i>
                 </li>
             </ul>

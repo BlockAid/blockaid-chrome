@@ -1,11 +1,11 @@
 
 function init() {
-    var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"text":"use.typekit.net","done":true},{"text":"googleapis.com","done":true}]')
+    var blockList = JSON.parse(localStorage.getItem("manualBlockList") || '[{"domain":"use.typekit.net","enabled":true},{"domain":"googleapis.com","enabled":true}]')
     localStorage.setItem("manualBlockList", JSON.stringify(blockList));
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'https://api.myjson.com/bins/4sbff',
+            url: 'http://0.0.0.0:3000/api/domains',
             success: function (data) {
                 localStorage.setItem("autoBlockList", JSON.stringify(data));
             }
@@ -23,8 +23,8 @@ function checkUrl(url) {
     }
     var i;
     for (i = 0; i < todoitems.length; i++) {
-        if (todoitems[i].done) {
-            if (url.match(new RegExp("http(s)?:\/\/.*" + todoitems[i].text + ".*")) !== null) {
+        if (todoitems[i].enabled) {
+            if (url.match(new RegExp("http(s)?:\/\/.*" + todoitems[i].domain + ".*")) !== null) {
                 return true;
             }
         }
@@ -53,11 +53,11 @@ chrome.webRequest.onErrorOccurred.addListener(
         console.log(details);
         if (details.error === "net::ERR_CONNECTION_TIMED_OUT" || details.error === "net::ERR_TIMED_OUT") {
             var todoitems = JSON.parse(localStorage.getItem("autoBlockList") || '{}');
-            todoitems.push({text: stripTrailingSlashAndProtocol(details.url), done: false});
+            todoitems.push({domain: stripTrailingSlashAndProtocol(details.url), domain: true});
             var arr = {};
 
             for (var i = 0; i < todoitems.length; i++)
-                arr[todoitems[i]['text']] = todoitems[i];
+                arr[todoitems[i]['domain']] = todoitems[i];
 
             todoitems = new Array();
             for (var key in arr)
