@@ -24,8 +24,7 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
             url: 'https://api.myjson.com/bins/4sbff',
             success: function (data) {
                 localStorage.setItem("autoBlockList", JSON.stringify(data));
-                console.log("not done")
-                return data;
+                $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
             }
         })
     }
@@ -95,7 +94,3 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
         $scope.init();
     };
 }])
-
-$(document).ajaxStop(function () {
-    // 0 === $.active
-});
