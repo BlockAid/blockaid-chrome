@@ -18,14 +18,15 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
 
     }
 
-    $scope.syncAuto = function (callback) {
+    $scope.syncAuto = function () {
         $.ajax({
             type: 'GET',
             url: 'http://0.0.0.0:3000/api/domains',
             success: function (data) {
-                localStorage.setItem("autoBlockList", JSON.stringify(data));
-                $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList") || '[]')
-                $scope.apply()
+                $scope.$apply(function () {
+                    localStorage.setItem("autoBlockList", JSON.stringify(data));
+                    $scope.blockList = JSON.parse(localStorage.getItem("autoBlockList"))
+                });
             }
         })
     }
