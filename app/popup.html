@@ -1,0 +1,77 @@
+<!doctype html>
+<!--<!doctype html>-->
+<!--<html>-->
+<!--<head>-->
+<!--<meta charset="utf-8">-->
+<!--&lt;!&ndash; build:css styles/popup-vendor.css &ndash;&gt;-->
+<!--&lt;!&ndash; bower:css &ndash;&gt;-->
+<!--&lt;!&ndash; endbower &ndash;&gt;-->
+<!--&lt;!&ndash; endbuild &ndash;&gt;-->
+<!--&lt;!&ndash; build:css styles/main.css &ndash;&gt;-->
+<!--<link href="styles/main.css" rel="stylesheet">-->
+<!--&lt;!&ndash; endbuild &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>'Allo, 'Allo!</h1>-->
+
+<!--&lt;!&ndash; build:js scripts/popup-vendor.js &ndash;&gt;-->
+<!--&lt;!&ndash; bower:js &ndash;&gt;-->
+<!--&lt;!&ndash; endbower &ndash;&gt;-->
+<!--&lt;!&ndash; endbuild &ndash;&gt;-->
+
+<!--&lt;!&ndash; build:js scripts/popup.js &ndash;&gt;-->
+<!--<script src="scripts/popup.js"></script>-->
+<!--&lt;!&ndash; endbuild &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+<html ng-app="BlockAidApp" ng-app ng-csp>
+<head>
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="scripts/config.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/toggle-switch.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div>
+    <div ng-controller="BlockAidController">
+        <div class="toggle">
+            <label class="switch-light switch-ios">
+                <input type="checkbox" ng-click="toggleStatus()" ng-true-value="true" ng-false-value="false"
+                       ng-model="status">
+                <span>
+                    STATUS
+                    <span>OFF</span>
+                    <span>ON</span>
+                </span><a></a></label>
+        </div>
+        <br/>
+
+        <div class="toggle">
+            <label class="switch-light switch-ios">
+                <input type="checkbox" ng-click="toggleMode()" ng-true-value="true" ng-false-value="false"
+                       ng-model="mode">
+                <span>
+                    MODE
+                    <span>MANUAL</span>
+                    <span>AUTO</span>
+                </span><a></a></label>
+        </div>
+        <br/>
+
+        <input class="upload-button" ng-click="openSettings()" ng-disabled="isDisabled" ng-model="isDisabled"
+               type="button" value="Options"/>
+        <br/>
+        <br/>
+        <input ng-click="openWebSite()" ng-disabled="isDisabled" ng-model="isDisabled" type="button"
+               value="About BlockAid"/>
+    </div>
+
+</div>
+</body>
+</html>
