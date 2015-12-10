@@ -10,7 +10,8 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/background.js"
+      "scripts/background.js",
+      "scripts/chromereload.js"
     ],
     "persistent": true
   },

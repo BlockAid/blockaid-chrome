@@ -21,4 +21,6 @@ connection.onmessage = function (e) {
     }
   }
 };
+
+console.log('its on baby, whoosh, cool!!');
 //# sourceMappingURL=chromereload.js.map
