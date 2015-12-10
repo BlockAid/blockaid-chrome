@@ -21,4 +21,4 @@ connection.onmessage = (e) => {
   }
 };
 
-console.log('its on baby, whoosh, cool!!');
+console.log('its on baby, whoosh!!');

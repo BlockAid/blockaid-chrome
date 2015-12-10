@@ -22,5 +22,5 @@ connection.onmessage = function (e) {
   }
 };
 
-console.log('its on baby, whoosh, cool!!');
+console.log('its on baby, whoosh!!');
 //# sourceMappingURL=chromereload.js.map

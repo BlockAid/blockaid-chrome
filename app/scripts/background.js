@@ -74,9 +74,13 @@ function onErrorOccurred(details) {
 
 function onBeforeRequest(details) {
     if (localStorage.getItem('status') === 'true') {
-        return {
-            cancel: checkUrl(details.url) !== false
-        };
+        var result = checkUrl(details.url);
+        if (result !== false) {
+            console.log('blocked', details.url);
+            return {
+                cancel: result
+            };
+        }
     }
 }
 

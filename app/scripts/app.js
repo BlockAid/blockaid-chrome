@@ -7,12 +7,12 @@ blockAidApp.controller('BlockAidController', ['$scope', function ($scope) {
     $scope.setIcon = function () {
         if ($scope.status === 'true') {
             if ($scope.mode === 'false') {
-                chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../../icons/default.png' }, function () {});
+                chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../images/default.png' }, function () {});
             } else {
-                chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../../icons/auto.png' }, function () {});
+                chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../images/auto.png' }, function () {});
             }
         } else {
-            chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../../icons/disabled.png' }, function () {});
+            chrome.runtime.sendMessage({ method: 'changeIcon', newIconPath: '../images/disabled.png' }, function () {});
         }
     };
 
